@@ -3,9 +3,31 @@ import lottie from "lottie-web/build/player/lottie_light";
 import PropTypes from "prop-types";
 
 /**
+ * Callback on lottie animation completed
+ *
+ * @callback onComplete
+ */
+
+/**
+ * @typedef {Object} Props
+ * @property {Object} options - Lottie's options, please refer to the README.md
+ * @property {Object} style - React component style(s)
+ * @property {number} width - width of the container component
+ * @property {number} height - height of the container component
+ * @property {boolean} isClickToPauseDisabled
+ * @property {boolean} isStopped
+ * @property {onComplete} onComplete
+ * @property {string} className
+ * @property {boolean} isPaused
+ * @property {Array} segments
+ * @property {number} speed
+ * @property {number} direction
+ */
+
+/**
  * React component for `lottie-web`
  *
- * @param {Object} param0 Lottie props
+ * @param {Props} props Lottie props
  * @returns JSX.Element
  */
 const Lottie = forwardRef(
@@ -38,6 +60,7 @@ const Lottie = forwardRef(
         autoplay: autoplay !== false,
         animationData,
         rendererSettings,
+        ...options,
       };
 
       const animationCallback = () => {
@@ -78,6 +101,7 @@ const Lottie = forwardRef(
       }
     };
 
+    // paused and anim used for testing purpose
     useImperativeHandle(ref, () => ({
       paused: () => anim.current?.isPaused,
       anim: () => anim.current,
@@ -152,7 +176,7 @@ Lottie.defaultProps = {
   isStopped: false,
   isPaused: false,
   speed: 1,
-  isClickToPauseDisabled: false,
+  isClickToPauseDisabled: true,
 };
 
 export default Lottie;

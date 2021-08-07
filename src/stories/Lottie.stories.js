@@ -24,6 +24,7 @@ const LottieStory = ({
         return animationDataA;
     }
   };
+
   const defaultOptions = {
     animationData: getAnim(animation),
     loop: looping,

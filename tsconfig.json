@@ -1,6 +1,6 @@
 {
   "include": ["src/**/*"],
-  "exclude": ["src/**/*.stories.js", "src/**/*.test.jst"],
+  "exclude": ["src/**/*.stories.js", "src/**/*.test.js"],
   "compilerOptions": {
     "allowJs": true,
     "declaration": true,

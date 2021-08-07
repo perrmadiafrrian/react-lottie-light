@@ -21,10 +21,22 @@ jest.setTimeout(10000);
 describe("react-lottie-light", () => {
   describe("props", () => {
     describe("isClickToPauseDisabled", () => {
-      it("should not pausing when isClickToPauseDisabled props is true", () => {
+      it("should set isClickToPauseDisabled default value to be true", () => {
         const compRef = createRef();
         const component = mount(
           <Lottie ref={compRef} options={defaultOptions} />
+        );
+        component.find("div").simulate("click");
+        expect(compRef.current.paused()).toEqual(false);
+      });
+      it("should not pausing when isClickToPauseDisabled props is true", () => {
+        const compRef = createRef();
+        const component = mount(
+          <Lottie
+            ref={compRef}
+            isClickToPauseDisabled={false}
+            options={defaultOptions}
+          />
         );
         component.find("div").simulate("click");
         expect(compRef.current.paused()).toEqual(true);
