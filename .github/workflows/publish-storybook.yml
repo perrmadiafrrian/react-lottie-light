@@ -11,7 +11,6 @@ jobs:
         with:
           persist-credentials: false
       - name: Install and Build 🔧
-        uses: actions/setup-node@v2
         run: | # Install packages and build the Storybook files
           yarn install
           yarn build-storybook
