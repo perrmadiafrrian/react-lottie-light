@@ -1,4 +1,9 @@
-import { forwardRef, useEffect, useImperativeHandle, useRef } from "react";
+import React, {
+  forwardRef,
+  useEffect,
+  useImperativeHandle,
+  useRef,
+} from "react";
 import lottie from "lottie-web/build/player/lottie_light";
 import PropTypes from "prop-types";
 
