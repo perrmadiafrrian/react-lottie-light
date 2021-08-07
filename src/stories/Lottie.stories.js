@@ -2,6 +2,7 @@ import Lottie from "../index";
 import animationDataA from "./pinjump.json";
 import animationDataB from "./TwitterHeart.json";
 import animationDataC from "./beating-heart.json";
+import { useEffect, useRef } from "react";
 
 const LottieStory = ({
   animation,
@@ -13,6 +14,14 @@ const LottieStory = ({
   pausing,
   pauseOnClick,
 }) => {
+  const animationRef = useRef();
+
+  useEffect(() => {
+    if (pausing) {
+      animationRef.current?.anim().pause();
+    }
+  }, [pausing]);
+
   const getAnim = (c_animation) => {
     switch (c_animation) {
       case "Pin Jump":
@@ -26,6 +35,14 @@ const LottieStory = ({
     }
   };
 
+  const togglePause = () => {
+    if (animationRef.current?.anim().isPaused) {
+      animationRef.current?.anim().play();
+    } else {
+      animationRef.current?.anim().pause();
+    }
+  };
+
   const defaultOptions = {
     animationData: getAnim(animation),
     loop: looping,
@@ -34,16 +51,17 @@ const LottieStory = ({
   return (
     <div>
       <Lottie
+        ref={animationRef}
         options={defaultOptions}
         height={300}
         width={300}
         isStopped={isStopped}
-        isPaused={pausing}
         speed={speed}
         direction={direction ? 1 : -1}
         segments={segments}
         isClickToPauseDisabled={!pauseOnClick}
       />
+      <button onClick={togglePause}>Toggle Pause</button>
     </div>
   );
 };
