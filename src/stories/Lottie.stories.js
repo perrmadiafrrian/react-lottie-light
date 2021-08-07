@@ -8,6 +8,7 @@ const LottieStory = ({
   isStopped,
   direction,
   looping,
+  segments,
   speed,
   pausing,
   pauseOnClick,
@@ -40,6 +41,7 @@ const LottieStory = ({
         isPaused={pausing}
         speed={speed}
         direction={direction ? 1 : -1}
+        segments={segments}
         isClickToPauseDisabled={!pauseOnClick}
       />
     </div>
@@ -78,6 +80,10 @@ export default {
     direction: {
       name: "Animation Direction",
       control: { type: "boolean" },
+    },
+    segments: {
+      name: "Segments",
+      control: { type: "array" },
     },
   },
 };
