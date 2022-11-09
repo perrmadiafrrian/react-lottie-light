@@ -2,11 +2,9 @@ import "jest-canvas-mock";
 import Lottie from "..";
 import pinjump from "../stories/pinjump.json";
 import heart from "../stories/TwitterHeart.json";
-import { mount, configure, shallow } from "enzyme";
-import Adapter from "@wojtekmaj/enzyme-adapter-react-17";
 import { createRef } from "react";
+import { fireEvent, render, screen } from "@testing-library/react";
 
-configure({ adapter: new Adapter() });
 const defaultOptions = {
   loop: true,
   autoplay: true,
@@ -23,56 +21,57 @@ describe("react-lottie-light", () => {
     describe("isClickToPauseDisabled", () => {
       it("should set isClickToPauseDisabled default value to be true", () => {
         const compRef = createRef();
-        const component = mount(
-          <Lottie ref={compRef} options={defaultOptions} />
-        );
-        component.find("div").simulate("click");
+        render(<Lottie ref={compRef} options={defaultOptions} />);
+        fireEvent.click(screen.getByTestId("lottie-container"));
         expect(compRef.current.paused()).toEqual(false);
       });
       it("should not pausing when isClickToPauseDisabled props is true", () => {
         const compRef = createRef();
-        const component = mount(
+        const { rerender } = render(
           <Lottie
             ref={compRef}
             isClickToPauseDisabled={false}
             options={defaultOptions}
           />
         );
-        component.find("div").simulate("click");
+        const component = screen.getByTestId("lottie-container");
+        fireEvent.click(component);
         expect(compRef.current.paused()).toEqual(true);
 
-        component.find("div").simulate("click");
+        fireEvent.click(component);
         expect(compRef.current.paused()).toEqual(false);
 
-        component.setProps({ isClickToPauseDisabled: true });
-        component.find("div").simulate("click");
+        rerender(
+          <Lottie
+            ref={compRef}
+            isClickToPauseDisabled={true}
+            options={defaultOptions}
+          />
+        );
+        fireEvent.click(component);
         expect(compRef.current.paused()).toEqual(false);
 
-        component.find("div").simulate("click");
+        fireEvent.click(component);
         expect(compRef.current.paused()).toEqual(false);
       });
     });
 
     describe("height and width", () => {
       it("should set the container style correctly", () => {
-        const component = shallow(
-          <Lottie options={defaultOptions} height={200} width={300} />
-        );
+        render(<Lottie options={defaultOptions} height={200} width={300} />);
 
-        expect(component.find("div").prop("style").height).toEqual("200px");
-        expect(component.find("div").prop("style").width).toEqual("300px");
+        const component = screen.getByTestId("lottie-container");
+        expect(component.style.height).toEqual("200px");
+        expect(component.style.width).toEqual("300px");
       });
     });
 
     describe("className", () => {
       it("set classname of the component", () => {
-        const component = shallow(
-          <Lottie options={defaultOptions} className="classname-test" />
-        );
+        render(<Lottie options={defaultOptions} className="classname-test" />);
 
-        expect(component.find("div").prop("className")).toEqual(
-          "classname-test"
-        );
+        const component = screen.getByTestId("lottie-container");
+        expect(component.className).toEqual("classname-test");
       });
     });
 
@@ -83,7 +82,7 @@ describe("react-lottie-light", () => {
           ...defaultOptions,
           loop: false,
         };
-        mount(<Lottie options={options} speed={4} onComplete={onComplete} />);
+        render(<Lottie options={options} speed={4} onComplete={onComplete} />);
 
         await new Promise((r) => setTimeout(r, 1000));
 
@@ -91,7 +90,7 @@ describe("react-lottie-light", () => {
       });
       it("should not called onComplete because it is looping", async () => {
         const onComplete = jest.fn();
-        mount(
+        render(
           <Lottie options={defaultOptions} speed={4} onComplete={onComplete} />
         );
 
@@ -104,29 +103,34 @@ describe("react-lottie-light", () => {
   describe("when props change", () => {
     it("should change animation based on animation data", () => {
       const compRef = createRef();
-      const component = mount(
+      const { rerender } = render(
         <Lottie options={defaultOptions} ref={compRef} />
       );
 
       expect(compRef.current.anim().animationData).toEqual(pinjump);
 
-      component.setProps({
-        options: {
-          ...defaultOptions,
-          animationData: heart,
-        },
-      });
+      rerender(
+        <Lottie
+          options={{
+            ...defaultOptions,
+            animationData: heart,
+          }}
+          ref={compRef}
+        />
+      );
 
       expect(compRef.current.anim().animationData).toEqual(heart);
     });
     it("should pause the animation if isPaused is true", () => {
       const compRef = createRef();
-      const component = mount(
+      const { rerender } = render(
         <Lottie options={defaultOptions} ref={compRef} />
       );
 
       expect(compRef.current.paused()).toEqual(false);
-      component.setProps({ isPaused: true });
+      rerender(
+        <Lottie options={defaultOptions} ref={compRef} isPaused={true} />
+      );
       expect(compRef.current.paused()).toEqual(true);
     });
   });
