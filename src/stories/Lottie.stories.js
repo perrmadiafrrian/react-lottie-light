@@ -2,7 +2,7 @@ import Lottie from "../index";
 import animationDataA from "./pinjump.json";
 import animationDataB from "./TwitterHeart.json";
 import animationDataC from "./beating-heart.json";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const LottieStory = ({
   animation,
@@ -15,6 +15,10 @@ const LottieStory = ({
   pauseOnClick,
 }) => {
   const animationRef = useRef();
+  const [options, setOptions] = useState({
+    animationData: animationDataA,
+    loop: looping,
+  });
 
   useEffect(() => {
     if (pausing) {
@@ -22,18 +26,29 @@ const LottieStory = ({
     }
   }, [pausing]);
 
-  const getAnim = (c_animation) => {
-    switch (c_animation) {
-      case "Pin Jump":
-        return animationDataA;
-      case "Heart":
-        return animationDataB;
-      case "Heart Beat":
-        return animationDataC;
-      default:
-        return animationDataA;
-    }
-  };
+  useEffect(() => {
+    const getAnim = async () => {
+      switch (animation) {
+        case "Pin Jump":
+          setOptions((state) => ({ ...state, animationData: animationDataA }));
+          break;
+        case "Heart":
+          setOptions((state) => ({ ...state, animationData: animationDataB }));
+          break;
+        case "Heart Beat":
+          setOptions((state) => ({ ...state, animationData: animationDataC }));
+          break;
+        case "Among Us":
+          const fetchData = await fetch(
+            "https://assets1.lottiefiles.com/packages/lf20_unljj7y7.json"
+          ).then((response) => response.json());
+          setOptions((state) => ({ ...state, animationData: fetchData }));
+          break;
+        default:
+      }
+    };
+    getAnim();
+  }, [animation]);
 
   const togglePause = () => {
     if (animationRef.current?.anim().isPaused) {
@@ -43,16 +58,11 @@ const LottieStory = ({
     }
   };
 
-  const defaultOptions = {
-    animationData: getAnim(animation),
-    loop: looping,
-  };
-
   return (
     <div>
       <Lottie
         ref={animationRef}
-        options={defaultOptions}
+        options={options}
         height={300}
         width={300}
         isStopped={isStopped}
@@ -71,7 +81,7 @@ export default {
   component: LottieStory,
   argTypes: {
     animation: {
-      options: ["Pin Jump", "Heart", "Heart Beat"],
+      options: ["Pin Jump", "Heart", "Heart Beat", "Among Us"],
       control: { type: "select" },
     },
     speed: {

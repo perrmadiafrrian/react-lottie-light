@@ -32,8 +32,7 @@ import PropTypes from "prop-types";
 /**
  * React component for `lottie-web`
  *
- * @param {Props} props Lottie props
- * @returns JSX.Element
+ * @type {React.FC<Props>}
  */
 const Lottie = forwardRef(
   (

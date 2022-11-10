@@ -15,7 +15,7 @@
     "url": "https://github.com/perrmadiafrrian/react-lottie-light.git"
   },
   "dependencies": {
-    "lottie-web": "^5.7.12",
+    "lottie-web": "^5.9.6",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1"
@@ -61,6 +61,7 @@
     "@babel/core": "^7.15.0",
     "@babel/eslint-parser": "^7.19.1",
     "@babel/preset-env": "^7.15.0",
+    "@babel/preset-react": "^7.18.6",
     "@storybook/addon-actions": "^6.5.13",
     "@storybook/addon-essentials": "^6.5.13",
     "@storybook/addon-links": "^6.5.13",
