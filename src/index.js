@@ -16,17 +16,17 @@ import PropTypes from "prop-types";
 /**
  * @typedef {Object} Props
  * @property {Object} options - Lottie's options, please refer to the README.md
- * @property {Object} style - React component style(s)
- * @property {number} width - width of the container component
- * @property {number} height - height of the container component
- * @property {boolean} isClickToPauseDisabled
- * @property {boolean} isStopped
- * @property {onComplete} onComplete
- * @property {string} className
- * @property {boolean} isPaused
- * @property {Array} segments
- * @property {number} speed
- * @property {number} direction
+ * @property {Object | undefined} style - React component style(s)
+ * @property {number | undefined} width - width of the container component
+ * @property {number | undefined} height - height of the container component
+ * @property {boolean | undefined} isClickToPauseDisabled
+ * @property {boolean | undefined} isStopped
+ * @property {onComplete | undefined} onComplete
+ * @property {string | undefined} className
+ * @property {boolean | undefined} isPaused
+ * @property {Array | undefined} segments
+ * @property {number | undefined} speed
+ * @property {number | undefined} direction
  */
 
 /**
