@@ -74,7 +74,6 @@ const Lottie = forwardRef(
     const anim = useRef();
 
     useEffect(() => {
-      const copyAnim = (animationData) => ({ ...animationData });
       const { loop, autoplay, animationData, rendererSettings } = options;
       const m_opt = {
         ...options,
@@ -82,7 +81,7 @@ const Lottie = forwardRef(
         renderer: "svg",
         loop: loop !== false,
         autoplay: autoplay !== false,
-        animationData: copyAnim(animationData),
+        animationData,
         rendererSettings,
       };
 
