@@ -14,8 +14,25 @@ import PropTypes from "prop-types";
  */
 
 /**
+ * @typedef {Object} RefType
+ * @property {Object} current
+ * @property {() => void} current.play
+ * @property {() => void} current.stop
+ * @property {AnimationItem} current.anim
+ */
+
+/**
+ * @typedef {Object} LottieOptions
+ * @property {Object} animationData
+ * @property {boolean} loop
+ * @property {boolean} autoplay
+ * @property {Object} rendererSettings
+ * @property {string} rendererSettings.preserveAspectRatio
+ */
+
+/**
  * @typedef {Object} Props
- * @property {Object} options - Lottie's options, please refer to the README.md
+ * @property {LottieOptions} options - Lottie's options, please refer to the README.md
  * @property {Object} [style] - React component style(s)
  * @property {number} [width] - width of the container component
  * @property {number} [height] - height of the container component
@@ -27,6 +44,7 @@ import PropTypes from "prop-types";
  * @property {Array} [segments]
  * @property {number} [speed]
  * @property {number} [direction]
+ * @property {RefType} ref
  */
 
 /**
@@ -56,15 +74,16 @@ const Lottie = forwardRef(
     const anim = useRef();
 
     useEffect(() => {
+      const copyAnim = (animationData) => ({ ...animationData });
       const { loop, autoplay, animationData, rendererSettings } = options;
       const m_opt = {
+        ...options,
         container: containerRef.current,
         renderer: "svg",
         loop: loop !== false,
         autoplay: autoplay !== false,
-        animationData,
+        animationData: copyAnim(animationData),
         rendererSettings,
-        ...options,
       };
 
       const animationCallback = () => {
