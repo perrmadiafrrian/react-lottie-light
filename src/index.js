@@ -15,10 +15,9 @@ import PropTypes from "prop-types";
 
 /**
  * @typedef {Object} RefType
- * @property {Object} current
- * @property {() => void} current.play
- * @property {() => void} current.stop
- * @property {AnimationItem} current.anim
+ * @property {() => void} play
+ * @property {() => void} stop
+ * @property {AnimationItem} anim
  */
 
 /**
@@ -44,7 +43,7 @@ import PropTypes from "prop-types";
  * @property {Array} [segments]
  * @property {number} [speed]
  * @property {number} [direction]
- * @property {RefType} [ref]
+ * @property {RefObject<RefType>} [ref]
  */
 
 /**
@@ -68,6 +67,7 @@ const Lottie = forwardRef(
       speed,
       direction,
     },
+    /** @type {RefType} */
     ref
   ) => {
     const containerRef = useRef();
