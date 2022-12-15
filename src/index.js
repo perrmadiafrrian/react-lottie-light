@@ -26,8 +26,8 @@ import PropTypes from "prop-types";
  * @property {Object} animationData
  * @property {boolean} loop
  * @property {boolean} autoplay
- * @property {Object} rendererSettings
- * @property {string} rendererSettings.preserveAspectRatio
+ * @property {Object} [rendererSettings]
+ * @property {string} [rendererSettings.preserveAspectRatio]
  */
 
 /**
@@ -44,7 +44,7 @@ import PropTypes from "prop-types";
  * @property {Array} [segments]
  * @property {number} [speed]
  * @property {number} [direction]
- * @property {RefType} ref
+ * @property {RefType} [ref]
  */
 
 /**
