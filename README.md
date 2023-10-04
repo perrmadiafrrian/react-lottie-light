@@ -1,5 +1,7 @@
 # React Lottie Light
 
+> :warning::warning::warning::warning: **This repository is abandoned.** :warning::warning::warning::warning:
+
 React component for [lottie-web](https://github.com/airbnb/lottie-web). This repositoriy originally is a fork from [react-lottie](https://github.com/chenqingspring/react-lottie), but then re-created using [create-react-app](https://reactjs.org/docs/create-a-new-react-app.html).
 
 This component using functional component and [hooks](https://reactjs.org/docs/hooks-intro.html), instead of [component classes](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes).
